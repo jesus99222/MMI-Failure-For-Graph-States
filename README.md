@@ -21,4 +21,4 @@ Data files accompanying the paper *MMI Failure for Graph States* (arXiv:XXXX.XXX
   After loading, evaluate `?SymbolName` (for example `?GenerateStabilizerStates`) to view usage instructions for public functions.
 
 ## Citation
-If you use this repository, please cite the associated paper (*MMI Failure for Graph States*, arXiv:XXXX.XXXXX) and acknowledge the authors Jesús Fuentes, Cynthia Keeler, Jason Pollack, and William Munizzi. See `NOTICE`.
+If you use this repository, please cite the associated paper (*MMI Failure for Graph States*, arXiv:XXXX.XXXXX) and acknowledge the authors Jesús Fuentes, Cynthia Keeler, Jason Pollack, and William Munizzi. See [NOTICE](NOTICE).
