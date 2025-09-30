@@ -1,6 +1,6 @@
 # Data Loading and Reproduction Guide
 
-This folder contains Mathematica `.mx` dumps of symbols used for the n = 8 analysis in our paper. Each file was saved so that `Get["Data/<name>.mx"]` defines the symbol whose name matches the filename (e.g., `graphRepsSymmetryOrbitsEight.mx` defines `graphRepsSymmetryOrbitsEight`).
+This folder contains Mathematica `.mx` dumps of symbols used for the n = 8 analysis in our paper. Each file was saved so that `Get["Data/MMI-Failure-Stars-n=8/<name>.mx"]` defines the symbol whose name matches the filename (e.g., `graphRepsSymmetryOrbitsEight.mx` defines `graphRepsSymmetryOrbitsEight`).
 
 Note: Mathematica `.mx` files are version- and architecture-dependent. If `Get` fails due to version mismatch, regenerate in your environment or re-dump the data.
 
@@ -10,7 +10,7 @@ From the repository root:
 
 ```wl
 (* Load all .mx datasets in this directory *)
-Scan[Get, FileNames["Data/*.mx"]]
+Scan[Get, FileNames["Data/MMI-Failure-Stars-n=8/*.mx"]]
 
 (* Alternatively, from a notebook inside the repo: *)
 dataDir = FileNameJoin[{NotebookDirectory[], "Data"}];
