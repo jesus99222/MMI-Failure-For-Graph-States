@@ -91,6 +91,7 @@ header .table-meta {
   max-width: 640px;
   margin: 0 auto;
   border-collapse: collapse;
+  table-layout: fixed;
   overflow: hidden;
   border-radius: 18px;
   border: 1px solid var(--border);
@@ -111,14 +112,15 @@ header .table-meta {
   border-bottom: 1px solid rgba(216, 219, 229, 0.65);
 }
 .entropy-table th:first-child,
-.entropy-table td:first-child {
-  width: 30%;
+.entropy-table td:first-child,
+.entropy-table th:last-child,
+.entropy-table td:last-child {
+  width: 50%;
   min-width: 120px;
-}
-.entropy-table td:first-child {
   text-align: center;
 }
-.entropy-table th:first-child {
+.entropy-table td:first-child,
+.entropy-table td:last-child {
   text-align: center;
 }
 .entropy-table tbody tr.hidden {
@@ -351,7 +353,7 @@ window.MathJax = {
 </section>
 <div class="table-wrapper">
   <div class="copy-bar">
-    <button class="copy-button" type="button" data-copy-text="{&#10;  1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 2,&#10;  2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,&#10;  2, 2, 2, 2, 3, 3, 3, 3, 2, 3, 3, 3, 3, 2, 3, 3,&#10;  3, 2, 3, 3, 2, 3, 2, 3, 1, 2, 3, 3, 3, 3, 2, 3,&#10;  3, 3, 3, 3, 2, 3, 3, 3, 3, 2, 3, 3, 3, 3, 3, 3,&#10;  2, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 3,&#10;  3, 3, 4, 3, 4, 4, 2, 3, 3, 4, 2, 4, 3, 3, 4, 4,&#10;  3, 4, 2, 3, 2, 3, 3, 4, 3, 4, 2, 3, 3, 2, 2&#10;}" data-feedback="\(\vec{S}\) copied to clipboard.">Copy \(\vec{S}\)</button>
+    <button class="copy-button" type="button" data-copy-text="{&#10;1,1,1,1,1,1,1,1,2,2,2,2,2,1,2,2,&#10;2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,&#10;2,2,2,2,3,3,3,3,2,3,3,3,3,2,3,3,&#10;3,2,3,3,2,3,2,3,1,2,3,3,3,3,2,3,&#10;3,3,3,3,2,3,3,3,3,2,3,3,3,3,3,3,&#10;2,3,2,3,3,3,3,3,3,3,3,3,3,4,4,3,&#10;3,3,4,3,4,4,2,3,3,4,2,4,3,3,4,4,&#10;3,4,2,3,2,3,3,4,3,4,2,3,3,2,2&#10;}" data-feedback="\(\vec{S}\) copied to clipboard.">Copy \(\vec{S}\)</button>
     <span class="copy-message" aria-live="polite"></span>
   </div>
   <table class="entropy-table">
