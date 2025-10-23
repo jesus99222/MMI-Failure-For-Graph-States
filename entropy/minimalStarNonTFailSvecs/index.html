@@ -1,0 +1,1372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Minimal Edge Graph Representatives that violate \( \mathrm{MMI}_{CIJ} \) · Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  color-scheme: light;
+  --page-width: min(100%, 1040px);
+  --bg: #f7f8fb;
+  --card: #ffffff;
+  --ink: #1a1f36;
+  --muted: #5a6072;
+  --accent: #2f3ec9;
+  --border: #d8dbe5;
+  font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.55;
+}
+header {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(2rem, 3vw, 3rem) 1.6rem;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 600;
+}
+header p {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+}
+main {
+  width: var(--page-width);
+  margin: 0 auto;
+  padding: clamp(1.8rem, 3vw, 3rem) clamp(1.2rem, 3vw, 2rem) 3rem;
+}
+.graph-card {
+  margin: 0 auto 2.4rem;
+  max-width: 500px;
+  background: var(--card);
+  padding: 1.25rem;
+  border-radius: 18px;
+  box-shadow: 0 22px 45px rgba(15, 20, 56, 0.08);
+  border: 1px solid rgba(196, 201, 220, 0.55);
+}
+.graph-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.table-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.table-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.table-meta a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+header .table-meta {
+  justify-content: center;
+  gap: 1.4rem;
+  margin: 0.85rem auto 1.2rem;
+}
+.entropy-table {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 20px 50px rgba(12, 18, 56, 0.06);
+}
+.entropy-table thead {
+  background: rgba(47, 62, 201, 0.08);
+  color: var(--ink);
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.entropy-table th,
+.entropy-table td {
+  padding: 0.42rem 0.55rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(216, 219, 229, 0.65);
+}
+.entropy-table th:first-child,
+.entropy-table td:first-child {
+  width: 30%;
+  min-width: 120px;
+}
+.entropy-table td:first-child {
+  text-align: center;
+}
+.entropy-table th:first-child {
+  text-align: center;
+}
+.entropy-table tbody tr.hidden {
+  display: none;
+}
+.entropy-table tbody tr:last-child th,
+.entropy-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.entropy-table tbody tr:hover {
+  background: rgba(47, 62, 201, 0.06);
+}
+.entropy-table th {
+  font-weight: 500;
+  color: var(--muted);
+}
+.entropy-table td.value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: var(--ink);
+}
+.copy-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 0 1.1rem;
+  text-align: center;
+}
+.copy-message {
+  font-size: 0.9rem;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  min-height: 1.1rem;
+}
+.copy-message.visible {
+  opacity: 1;
+}
+.copy-button {
+  appearance: none;
+  border: 1px solid rgba(47, 62, 201, 0.25);
+  background: linear-gradient(135deg, rgba(47,62,201,0.12), rgba(47,62,201,0.18));
+  color: var(--ink);
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 28px rgba(24, 31, 89, 0.18);
+}
+.copy-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(24, 31, 89, 0.24);
+}
+.copy-button:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 20px rgba(24, 31, 89, 0.18);
+}
+.query-card {
+  margin: 0 auto 2.3rem;
+  max-width: 620px;
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid rgba(196, 201, 220, 0.5);
+  box-shadow: 0 16px 34px rgba(16, 21, 58, 0.08);
+  padding: 1.1rem 1.25rem 1.25rem;
+}
+.query-card h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.query-card p {
+  margin: 0.4rem 0 0.9rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.query-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+.query-input {
+  flex: 0 1 190px;
+  border: 1px solid rgba(47, 62, 201, 0.26);
+  border-radius: 12px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.98rem;
+  font-family: inherit;
+  color: var(--ink);
+  box-shadow: inset 0 1px 3px rgba(18, 22, 60, 0.05);
+}
+.query-feedback {
+  font-size: 0.95rem;
+  color: var(--muted);
+  min-height: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+}
+.query-feedback.error {
+  color: #b1203c;
+}
+.cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  margin: 2rem 0 4rem;
+}
+.card {
+  padding: 1.05rem 1.2rem;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid rgba(196, 201, 220, 0.6);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  box-shadow: 0 16px 36px rgba(20, 24, 61, 0.10);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card.card-with-thumb {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1rem;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 46px rgba(20, 24, 61, 0.16);
+}
+.card-thumb {
+  width: 64px;
+  height: 64px;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid rgba(47, 62, 201, 0.28);
+  background: rgba(47, 62, 201, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: center;
+}
+.card-thumb img {
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+  display: block;
+}
+.card-thumb.placeholder {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+  min-height: 72px;
+}
+.card.card-with-thumb .card-body {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.card-body span:first-child {
+  font-weight: 600;
+  font-size: 1.08rem;
+}
+.card-body span + span {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: auto;
+}
+footer {
+  padding: 3rem clamp(1.5rem, 3vw, 3rem);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+@media (max-width: 720px) {
+  header { padding: 1.8rem 1rem; }
+  main { padding: 1.6rem 1rem 2.4rem; }
+  .graph-card { padding: 1rem; }
+  .copy-bar { justify-content: flex-start; }
+  .query-form { gap: 0.6rem; }
+}
+</style>
+
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]] },
+  options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+<header>
+  <h1>Minimal Edge Graph Representatives that violate \( \mathrm{MMI}_{CIJ} \)</h1>
+  <p>Select any numbered graph to view its entropy vector and visualization. Entropy vectors are given in reduced form, and have \(127 = 2^{8-1} - 1\) entries.</p>
+
+</header>
+<main>
+<div class="table-meta">
+  <a href="../index.html">&larr; Global entropy index</a>
+  <span>128 graphs in this table</span>
+</div>
+<div class="cards">
+  <a class="card card-with-thumb" href="1.html">
+    <div class="card-body">
+      <span>Graph (1)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-1.png" alt="Graph (1) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="2.html">
+    <div class="card-body">
+      <span>Graph (2)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-2.png" alt="Graph (2) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="3.html">
+    <div class="card-body">
+      <span>Graph (3)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-3.png" alt="Graph (3) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="4.html">
+    <div class="card-body">
+      <span>Graph (4)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-4.png" alt="Graph (4) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="5.html">
+    <div class="card-body">
+      <span>Graph (5)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-5.png" alt="Graph (5) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="6.html">
+    <div class="card-body">
+      <span>Graph (6)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-6.png" alt="Graph (6) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="7.html">
+    <div class="card-body">
+      <span>Graph (7)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-7.png" alt="Graph (7) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="8.html">
+    <div class="card-body">
+      <span>Graph (8)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-8.png" alt="Graph (8) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="9.html">
+    <div class="card-body">
+      <span>Graph (9)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-9.png" alt="Graph (9) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="10.html">
+    <div class="card-body">
+      <span>Graph (10)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-10.png" alt="Graph (10) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="11.html">
+    <div class="card-body">
+      <span>Graph (11)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-11.png" alt="Graph (11) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="12.html">
+    <div class="card-body">
+      <span>Graph (12)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-12.png" alt="Graph (12) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="13.html">
+    <div class="card-body">
+      <span>Graph (13)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-13.png" alt="Graph (13) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="14.html">
+    <div class="card-body">
+      <span>Graph (14)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-14.png" alt="Graph (14) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="15.html">
+    <div class="card-body">
+      <span>Graph (15)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-15.png" alt="Graph (15) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="16.html">
+    <div class="card-body">
+      <span>Graph (16)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-16.png" alt="Graph (16) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="17.html">
+    <div class="card-body">
+      <span>Graph (17)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-17.png" alt="Graph (17) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="18.html">
+    <div class="card-body">
+      <span>Graph (18)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-18.png" alt="Graph (18) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="19.html">
+    <div class="card-body">
+      <span>Graph (19)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-19.png" alt="Graph (19) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="20.html">
+    <div class="card-body">
+      <span>Graph (20)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-20.png" alt="Graph (20) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="21.html">
+    <div class="card-body">
+      <span>Graph (21)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-21.png" alt="Graph (21) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="22.html">
+    <div class="card-body">
+      <span>Graph (22)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-22.png" alt="Graph (22) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="23.html">
+    <div class="card-body">
+      <span>Graph (23)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-23.png" alt="Graph (23) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="24.html">
+    <div class="card-body">
+      <span>Graph (24)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-24.png" alt="Graph (24) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="25.html">
+    <div class="card-body">
+      <span>Graph (25)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-25.png" alt="Graph (25) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="26.html">
+    <div class="card-body">
+      <span>Graph (26)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-26.png" alt="Graph (26) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="27.html">
+    <div class="card-body">
+      <span>Graph (27)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-27.png" alt="Graph (27) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="28.html">
+    <div class="card-body">
+      <span>Graph (28)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-28.png" alt="Graph (28) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="29.html">
+    <div class="card-body">
+      <span>Graph (29)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-29.png" alt="Graph (29) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="30.html">
+    <div class="card-body">
+      <span>Graph (30)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-30.png" alt="Graph (30) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="31.html">
+    <div class="card-body">
+      <span>Graph (31)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-31.png" alt="Graph (31) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="32.html">
+    <div class="card-body">
+      <span>Graph (32)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-32.png" alt="Graph (32) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="33.html">
+    <div class="card-body">
+      <span>Graph (33)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-33.png" alt="Graph (33) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="34.html">
+    <div class="card-body">
+      <span>Graph (34)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-34.png" alt="Graph (34) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="35.html">
+    <div class="card-body">
+      <span>Graph (35)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-35.png" alt="Graph (35) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="36.html">
+    <div class="card-body">
+      <span>Graph (36)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-36.png" alt="Graph (36) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="37.html">
+    <div class="card-body">
+      <span>Graph (37)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-37.png" alt="Graph (37) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="38.html">
+    <div class="card-body">
+      <span>Graph (38)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-38.png" alt="Graph (38) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="39.html">
+    <div class="card-body">
+      <span>Graph (39)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-39.png" alt="Graph (39) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="40.html">
+    <div class="card-body">
+      <span>Graph (40)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-40.png" alt="Graph (40) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="41.html">
+    <div class="card-body">
+      <span>Graph (41)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-41.png" alt="Graph (41) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="42.html">
+    <div class="card-body">
+      <span>Graph (42)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-42.png" alt="Graph (42) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="43.html">
+    <div class="card-body">
+      <span>Graph (43)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-43.png" alt="Graph (43) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="44.html">
+    <div class="card-body">
+      <span>Graph (44)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-44.png" alt="Graph (44) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="45.html">
+    <div class="card-body">
+      <span>Graph (45)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-45.png" alt="Graph (45) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="46.html">
+    <div class="card-body">
+      <span>Graph (46)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-46.png" alt="Graph (46) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="47.html">
+    <div class="card-body">
+      <span>Graph (47)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-47.png" alt="Graph (47) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="48.html">
+    <div class="card-body">
+      <span>Graph (48)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-48.png" alt="Graph (48) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="49.html">
+    <div class="card-body">
+      <span>Graph (49)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-49.png" alt="Graph (49) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="50.html">
+    <div class="card-body">
+      <span>Graph (50)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-50.png" alt="Graph (50) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="51.html">
+    <div class="card-body">
+      <span>Graph (51)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-51.png" alt="Graph (51) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="52.html">
+    <div class="card-body">
+      <span>Graph (52)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-52.png" alt="Graph (52) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="53.html">
+    <div class="card-body">
+      <span>Graph (53)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-53.png" alt="Graph (53) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="54.html">
+    <div class="card-body">
+      <span>Graph (54)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-54.png" alt="Graph (54) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="55.html">
+    <div class="card-body">
+      <span>Graph (55)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-55.png" alt="Graph (55) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="56.html">
+    <div class="card-body">
+      <span>Graph (56)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-56.png" alt="Graph (56) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="57.html">
+    <div class="card-body">
+      <span>Graph (57)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-57.png" alt="Graph (57) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="58.html">
+    <div class="card-body">
+      <span>Graph (58)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-58.png" alt="Graph (58) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="59.html">
+    <div class="card-body">
+      <span>Graph (59)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-59.png" alt="Graph (59) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="60.html">
+    <div class="card-body">
+      <span>Graph (60)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-60.png" alt="Graph (60) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="61.html">
+    <div class="card-body">
+      <span>Graph (61)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-61.png" alt="Graph (61) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="62.html">
+    <div class="card-body">
+      <span>Graph (62)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-62.png" alt="Graph (62) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="63.html">
+    <div class="card-body">
+      <span>Graph (63)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-63.png" alt="Graph (63) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="64.html">
+    <div class="card-body">
+      <span>Graph (64)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-64.png" alt="Graph (64) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="65.html">
+    <div class="card-body">
+      <span>Graph (65)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-65.png" alt="Graph (65) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="66.html">
+    <div class="card-body">
+      <span>Graph (66)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-66.png" alt="Graph (66) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="67.html">
+    <div class="card-body">
+      <span>Graph (67)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-67.png" alt="Graph (67) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="68.html">
+    <div class="card-body">
+      <span>Graph (68)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-68.png" alt="Graph (68) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="69.html">
+    <div class="card-body">
+      <span>Graph (69)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-69.png" alt="Graph (69) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="70.html">
+    <div class="card-body">
+      <span>Graph (70)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-70.png" alt="Graph (70) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="71.html">
+    <div class="card-body">
+      <span>Graph (71)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-71.png" alt="Graph (71) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="72.html">
+    <div class="card-body">
+      <span>Graph (72)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-72.png" alt="Graph (72) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="73.html">
+    <div class="card-body">
+      <span>Graph (73)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-73.png" alt="Graph (73) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="74.html">
+    <div class="card-body">
+      <span>Graph (74)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-74.png" alt="Graph (74) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="75.html">
+    <div class="card-body">
+      <span>Graph (75)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-75.png" alt="Graph (75) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="76.html">
+    <div class="card-body">
+      <span>Graph (76)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-76.png" alt="Graph (76) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="77.html">
+    <div class="card-body">
+      <span>Graph (77)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-77.png" alt="Graph (77) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="78.html">
+    <div class="card-body">
+      <span>Graph (78)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-78.png" alt="Graph (78) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="79.html">
+    <div class="card-body">
+      <span>Graph (79)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-79.png" alt="Graph (79) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="80.html">
+    <div class="card-body">
+      <span>Graph (80)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-80.png" alt="Graph (80) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="81.html">
+    <div class="card-body">
+      <span>Graph (81)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-81.png" alt="Graph (81) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="82.html">
+    <div class="card-body">
+      <span>Graph (82)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-82.png" alt="Graph (82) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="83.html">
+    <div class="card-body">
+      <span>Graph (83)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-83.png" alt="Graph (83) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="84.html">
+    <div class="card-body">
+      <span>Graph (84)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-84.png" alt="Graph (84) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="85.html">
+    <div class="card-body">
+      <span>Graph (85)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-85.png" alt="Graph (85) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="86.html">
+    <div class="card-body">
+      <span>Graph (86)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-86.png" alt="Graph (86) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="87.html">
+    <div class="card-body">
+      <span>Graph (87)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-87.png" alt="Graph (87) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="88.html">
+    <div class="card-body">
+      <span>Graph (88)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-88.png" alt="Graph (88) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="89.html">
+    <div class="card-body">
+      <span>Graph (89)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-89.png" alt="Graph (89) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="90.html">
+    <div class="card-body">
+      <span>Graph (90)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-90.png" alt="Graph (90) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="91.html">
+    <div class="card-body">
+      <span>Graph (91)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-91.png" alt="Graph (91) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="92.html">
+    <div class="card-body">
+      <span>Graph (92)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-92.png" alt="Graph (92) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="93.html">
+    <div class="card-body">
+      <span>Graph (93)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-93.png" alt="Graph (93) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="94.html">
+    <div class="card-body">
+      <span>Graph (94)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-94.png" alt="Graph (94) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="95.html">
+    <div class="card-body">
+      <span>Graph (95)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-95.png" alt="Graph (95) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="96.html">
+    <div class="card-body">
+      <span>Graph (96)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-96.png" alt="Graph (96) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="97.html">
+    <div class="card-body">
+      <span>Graph (97)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-97.png" alt="Graph (97) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="98.html">
+    <div class="card-body">
+      <span>Graph (98)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-98.png" alt="Graph (98) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="99.html">
+    <div class="card-body">
+      <span>Graph (99)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-99.png" alt="Graph (99) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="100.html">
+    <div class="card-body">
+      <span>Graph (100)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-100.png" alt="Graph (100) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="101.html">
+    <div class="card-body">
+      <span>Graph (101)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-101.png" alt="Graph (101) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="102.html">
+    <div class="card-body">
+      <span>Graph (102)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-102.png" alt="Graph (102) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="103.html">
+    <div class="card-body">
+      <span>Graph (103)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-103.png" alt="Graph (103) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="104.html">
+    <div class="card-body">
+      <span>Graph (104)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-104.png" alt="Graph (104) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="105.html">
+    <div class="card-body">
+      <span>Graph (105)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-105.png" alt="Graph (105) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="106.html">
+    <div class="card-body">
+      <span>Graph (106)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-106.png" alt="Graph (106) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="107.html">
+    <div class="card-body">
+      <span>Graph (107)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-107.png" alt="Graph (107) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="108.html">
+    <div class="card-body">
+      <span>Graph (108)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-108.png" alt="Graph (108) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="109.html">
+    <div class="card-body">
+      <span>Graph (109)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-109.png" alt="Graph (109) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="110.html">
+    <div class="card-body">
+      <span>Graph (110)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-110.png" alt="Graph (110) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="111.html">
+    <div class="card-body">
+      <span>Graph (111)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-111.png" alt="Graph (111) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="112.html">
+    <div class="card-body">
+      <span>Graph (112)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-112.png" alt="Graph (112) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="113.html">
+    <div class="card-body">
+      <span>Graph (113)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-113.png" alt="Graph (113) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="114.html">
+    <div class="card-body">
+      <span>Graph (114)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-114.png" alt="Graph (114) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="115.html">
+    <div class="card-body">
+      <span>Graph (115)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-115.png" alt="Graph (115) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="116.html">
+    <div class="card-body">
+      <span>Graph (116)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-116.png" alt="Graph (116) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="117.html">
+    <div class="card-body">
+      <span>Graph (117)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-117.png" alt="Graph (117) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="118.html">
+    <div class="card-body">
+      <span>Graph (118)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-118.png" alt="Graph (118) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="119.html">
+    <div class="card-body">
+      <span>Graph (119)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-119.png" alt="Graph (119) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="120.html">
+    <div class="card-body">
+      <span>Graph (120)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-120.png" alt="Graph (120) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="121.html">
+    <div class="card-body">
+      <span>Graph (121)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-121.png" alt="Graph (121) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="122.html">
+    <div class="card-body">
+      <span>Graph (122)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-122.png" alt="Graph (122) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="123.html">
+    <div class="card-body">
+      <span>Graph (123)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-123.png" alt="Graph (123) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="124.html">
+    <div class="card-body">
+      <span>Graph (124)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-124.png" alt="Graph (124) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="125.html">
+    <div class="card-body">
+      <span>Graph (125)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-125.png" alt="Graph (125) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="126.html">
+    <div class="card-body">
+      <span>Graph (126)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-126.png" alt="Graph (126) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="127.html">
+    <div class="card-body">
+      <span>Graph (127)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-127.png" alt="Graph (127) preview">
+    </div>
+  </a>
+  <a class="card card-with-thumb" href="128.html">
+    <div class="card-body">
+      <span>Graph (128)</span>
+    </div>
+    <div class="card-thumb">
+      <img src="../images/minimalStarNonTFailSvecs-128.png" alt="Graph (128) preview">
+    </div>
+  </a>
+</div>
+</main>
+<footer>
+  arXiv:xxxx.yyyyy (J. Fuentes, C. Keeler, J. Pollack, and W. Munizzi)
+</footer>
+</body>
+</html>

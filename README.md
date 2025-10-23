@@ -20,5 +20,9 @@ Data files accompanying the paper *MMI Failure for Graph States* (arXiv:XXXX.XXX
   ```
   After loading, evaluate `?SymbolName` (for example `?GenerateStabilizerStates`) to view usage instructions for public functions.
 
+## Entropy Vector HTML Library
+- Pre-rendered entropy tables and graph previews live in `entropy/`. Open `entropy/index.html` to browse the global catalog or `entropy/<table-id>/index.html` for a specific family (for example, `entropy/minimalStarNonTFailSvecs/index.html`).
+- Each card links to a per-graph page containing the reduced entropy vector, a copy-to-clipboard shortcut, and a thumbnail of the underlying graph (all thumbnails are stored centrally in `entropy/images/`).
+
 ## Citation
 If you use this repository, please cite the associated paper (*MMI Failure for Graph States*, arXiv:XXXX.XXXXX) and acknowledge the authors Jesús Fuentes, Cynthia Keeler, Jason Pollack, and William Munizzi. See [NOTICE](NOTICE).
