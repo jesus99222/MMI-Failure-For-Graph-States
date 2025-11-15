@@ -1,6 +1,6 @@
 {
 	"tableId":"minimalStarTFailnoCIJSvecs",
-	"tableTitle":"Minimal Star T Failures without CIJ",
+	"tableTitle":"Minimal Edge Graph Representatives that violate \\( \\mathrm{MMI} \\) but none of type \\( \\mathrm{MMI}_{CIJ} \\)",
 	"graphLabels":[
 		"1",
 		"2",
