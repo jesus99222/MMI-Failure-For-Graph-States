@@ -1,6 +1,6 @@
 {
 	"tableId":"starRepsSatisfySvecs",
-	"tableTitle":"Star Representatives Satisfying MMI",
+	"tableTitle":"Minimal Edge Graph Representatives Satisfying \\( \\mathrm{MMI} \\)",
 	"graphLabels":[
 		"1",
 		"2",
