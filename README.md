@@ -1,7 +1,7 @@
-# MMI Failure for Graph States Data Repository
+# Monogamy of Mutual Information in Graph States Data Repository
 
 ## Introduction
-Data files accompanying the paper *MMI Failure for Graph States* ([arXiv:2511.19585](http://arxiv.org/abs/2511.19585)
+Data files accompanying the paper *Monogamy of Mutual Information in Graph States* ([arXiv:2511.19585](http://arxiv.org/abs/2511.19585)
 ) by Jesús Fuentes, Cynthia Keeler, Jason Pollack, and William Munizzi. This repository consolidates every function needed to reproduce the monogamy of mutual information (MMI) study on stabilizer and graph states.
 
 ## Contents
