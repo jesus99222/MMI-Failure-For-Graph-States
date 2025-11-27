@@ -1,4 +1,4 @@
-# Data for MMI Failure on Graph States (n = 8)
+# Data for Monogamy of Mutual Information in Graph States (n = 8)
 
 This directory contains Mathematica `.mx` data files related to monogamy of mutual information (MMI) for graph states on eight vertices. All graphs are considered **up to graph isomorphism**, and entropy vectors are considered **up to subsystem-label symmetry**.
 
