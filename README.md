@@ -26,5 +26,5 @@ Data files accompanying the paper *Monogamy of Mutual Information in Graph State
 - Each card links to a per-graph page containing the reduced entropy vector, a copy-to-clipboard shortcut, and a thumbnail of the underlying graph (all thumbnails are stored centrally in `entropy/images/`).
 
 ## Citation
-If you use this repository, please cite the associated paper (*MMI Failure for Graph States*, [arXiv:2511.19585](http://arxiv.org/abs/2511.19585)
+If you use this repository, please cite the associated paper (*Monogamy of Mutual Information in Graph States*, [arXiv:2511.19585](http://arxiv.org/abs/2511.19585)
 ) and acknowledge the authors Jesús Fuentes, Cynthia Keeler, Jason Pollack, and William Munizzi. See [NOTICE](NOTICE).
